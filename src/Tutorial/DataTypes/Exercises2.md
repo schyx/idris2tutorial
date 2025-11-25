@@ -15,6 +15,10 @@ Implement an equality test for `Title` (you can use the equality operator `(==)`
 ```idris
 total
 eqTitle : Title -> Title -> Bool
+eqTitle Mr        Mr        = True
+eqTitle Mrs       Mrs       = True
+eqTitle (Other x) (Other y) = x == y
+eqTitle _         _         = False
 ```
 
 ## Exercise 2
@@ -24,6 +28,8 @@ Implement a simple test for `Title` to check whether or not a custom title is be
 ```idris
 total
 isOther : Title -> Bool
+isOther (Other _) = True
+isOther _         = False
 ```
 
 ## Exercise 3
@@ -36,19 +42,23 @@ Given our simple `Credentials` type, there are three ways for authentication to 
 
 Encapsulate these three possibilities in a sum type called `LoginError`. Make sure not to disclose any confidential information, an invalid username should be stored in the corresponding error value, but an invalid password or key should not.
 
+```idris
+data LoginError
+  = InvalidUser String
+  | InvalidPassword
+  | InvalidKey
+```
+
 ## Exercise 4
 
 Implement the following function , which can be used to display an error message to the user after they unsuccessfully tried to login into our web application:
 
-```idris hide
--- Hidden forward declaration to make this module compile so we can have syntax
--- highlighting
-data LoginError : Type
-```
-
 ```idris
 total
 showError : LoginError -> String
+showError InvalidKey         = "Invalid key was used!"
+showError InvalidPassword    = "Invalid password was used!"
+showError (InvalidUser user) = "Invalid username was given!"
 ```
 
 <!-- vi: filetype=idris2:syntax=markdown
