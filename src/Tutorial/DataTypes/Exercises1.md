@@ -32,6 +32,7 @@ Define your own data type representing different units of time (seconds, minutes
 > Use integer division (`div`) when going from seconds to some larger unit like hours).
 
 ```idris
+public export
 data UnitOfTime = Second -- add additional values
                 | Minute
                 | Hour
@@ -40,6 +41,7 @@ data UnitOfTime = Second -- add additional values
 
 -- calculate the number of seconds from a
 -- number of steps in the given unit of time
+export
 total
 toSeconds : UnitOfTime -> Integer -> Integer
 toSeconds Second n = n
