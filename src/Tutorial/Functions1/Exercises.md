@@ -2,6 +2,8 @@
 
 ```idris
 module Tutorial.Functions1.Exercises
+
+import Tutorial.Functions1.HigherOrder
 ```
 
 The solutions to these exercises can be found in [`src/Solutions/Functions1.idr`](../../Solutions/Functions1.md).
@@ -10,21 +12,55 @@ The solutions to these exercises can be found in [`src/Solutions/Functions1.idr`
 
 Reimplement functions `testSquare` and `twice` by using the dot operator and dropping the second arguments (have a look at the implementation of `squareTimes2` to get an idea where this should lead you). This highly concise way of writing function implementations is sometimes called *point-free style* and is often the preferred way of writing small utility functions.
 
+```idris
+square : Integer -> Integer
+square n = n * n
+
+testSquare : (Integer -> Bool) -> Integer -> Bool
+testSquare fun = fun . square
+
+twice : (Integer -> Integer) -> Integer -> Integer
+twice f = f . f
+```
+
 ## Exercise 2
 
 Declare and implement function `isOdd` by combining functions `isEven` from above and `not` (from the Idris *Prelude*). Use point-free style.
+
+```idris
+isEven : Integer -> Bool
+isEven n = n `mod` 2 == 0
+
+isOdd : Integer -> Bool
+isOdd = not . isEven
+```
 
 ## Exercise 3
 
 Declare and implement function `isSquareOf`, which checks whether its first `Integer` argument is the square of the second argument.
 
+```idris
+isSquareOf : Integer -> Integer -> Bool
+isSquareOf a b = a == square b
+```
+
 ## Exercise 4
 
 Declare and implement function `isSmall`, which checks whether its `Integer` argument is less than or equal to 100. Use one of the comparison operators `<=` or `>=` in your implementation.
 
+```idris
+isSmall : Integer -> Bool
+isSmall = (<= 100)
+```
+
 ## Exercise 5
 
 Declare and implement function `absIsSmall`, which checks whether the absolute value of its `Integer` argument is less than or equal to 100. Use functions `isSmall` and `abs` (from the Idris *Prelude*) in your implementation, which should be in point-free style.
+
+```idris
+absIsSmall : Integer -> Bool
+absIsSmall = isSmall . abs
+```
 
 ## Exercise 6
 
@@ -33,12 +69,15 @@ In this slightly extended exercise we are going to implement some utilities for 
 ```idris
 -- return true, if and only if both predicates hold
 and : (Integer -> Bool) -> (Integer -> Bool) -> Integer -> Bool
+and f g x = f x && g x
 
 -- return true, if and only if at least one predicate holds
 or : (Integer -> Bool) -> (Integer -> Bool) -> Integer -> Bool
+or f g x = f x || g x
 
 -- return true, if the predicate does not hold
 negate : (Integer -> Bool) -> Integer -> Bool
+negate f = not . f
 ```
 
 After solving this exercise, give it a go in the REPL. In the example below, we use binary function `and` in infix notation by wrapping it in backticks. This is just a syntactic convenience to make certain function applications more readable:
@@ -61,9 +100,11 @@ x && y = and x y
 
 -- return true, if and only if at least one predicate holds
 (||) : (Integer -> Bool) -> (Integer -> Bool) -> Integer -> Bool
+x || y = or x y
 
 -- return true, if the predicate does not hold
 not : (Integer -> Bool) -> Integer -> Bool
+not = negate
 ```
 
 Implement the other two functions and test them at the REPL:
