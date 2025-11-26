@@ -43,6 +43,7 @@ Given our simple `Credentials` type, there are three ways for authentication to 
 Encapsulate these three possibilities in a sum type called `LoginError`. Make sure not to disclose any confidential information, an invalid username should be stored in the corresponding error value, but an invalid password or key should not.
 
 ```idris
+public export
 data LoginError
   = InvalidUser String
   | InvalidPassword

@@ -83,15 +83,16 @@ Fluorine : 18.9984
 ```
 
 ```idris
-data Elements
+public export
+data Element
   = H
   | C
   | N
   | O
   | F
 
-total
-atomicMass : Elements -> Double
+public export total
+atomicMass : Element -> Double
 atomicMass H = 1.008
 atomicMass C = 12.011
 atomicMass N = 14.007

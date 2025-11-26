@@ -75,6 +75,7 @@ Data types such as `Title` are called *sum types*, as they consist of the sum of
 To provide another (drastically simplified) example of a sum type, let's assume that we want to allow two forms of authentication in our web application, either by entering a username plus a password (which we will represent with an unsigned 64 bit integer here), or by providing username plus a very complex secret key (which we will represent with a string). We can encode these two options as a sum type as follows:
 
 ```idris
+public export
 data Credentials = Password String Bits64 | Key String String
 ```
 
