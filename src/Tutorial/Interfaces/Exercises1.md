@@ -48,6 +48,7 @@ minElem (x :: xs) =
 4. Define an interface `Concat` for values like lists or strings, which can be concatenated. Provide implementations for lists and strings.
 
 ```idris
+public export
 interface Concat a where
   concatenate : a -> a -> a
 

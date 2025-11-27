@@ -13,12 +13,14 @@ In the last section, we learned about the very basics of interfaces: Why they ar
 Some interfaces form a kind of hierarchy. For instance, for the `Concat` interface used in exercise 4, there might be a child interface called `Empty`, for those types, which have a neutral element with relation to concatenation. In such a case, we make an implementation of `Concat` a prerequisite for implementing `Empty`:
 
 ```idris
+public export
 interface Concat a where
   concat : a -> a -> a
 
 implementation Concat String where
   concat = (++)
 
+public export
 interface Concat a => Empty a where
   empty : a
 
@@ -64,6 +66,7 @@ Here, Idris tries to find an implementation for `Comp (Maybe Bits8)`. In order t
 Sometimes, we'd like to pack several related functions in an interface to allow programmers to implement each in the most efficient way, although they *could* be implemented in terms of each other. For instance, consider an interface `Equals` for comparing two values for equality, with functions `eq` returning `True` if two values are equal and `neq` returning `True` if they are not. Surely, we can implement `neq` in terms of `eq`, so most of the time when implementing `Equals`, we will only implement the latter. In this case, we can give an implementation for `neq` already in the definition of `Equals`:
 
 ```idris
+public export
 interface Equals a where
   eq : a -> a -> Bool
 
