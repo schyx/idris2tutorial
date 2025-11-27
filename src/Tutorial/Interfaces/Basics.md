@@ -83,6 +83,7 @@ We can now use `comp` in the implementations of related functions. All we have t
 lessThan : Comp a => a -> a -> Bool
 lessThan s1 s2 = LT == comp s1 s2
 
+public export
 greaterThan : Comp a => a -> a -> Bool
 greaterThan s1 s2 = GT == comp s1 s2
 
