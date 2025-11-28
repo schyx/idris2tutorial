@@ -53,6 +53,7 @@ Note, that there is no value of type `Fin 0`. We will learn in a later session, 
 Let us now check, whether we can use `Fin` to safely index into a `Vect`:
 
 ```idris
+public export
 index : Fin n -> Vect n a -> a
 ```
 

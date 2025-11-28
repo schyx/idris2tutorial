@@ -13,6 +13,7 @@ In the last section - especially in some of the exercises - we started more and 
 It is possible to concatenate two `List`s with the `(++)` operator. Surely, this should also be possible for `Vect`. But `Vect` is indexed by its length, so we have to reflect in the types exactly how the lengths of the inputs affect the lengths of the output. Here's how to do this:
 
 ```idris
+public export
 (++) : Vect m a -> Vect n a -> Vect (m + n) a
 (++) []        ys = ys
 (++) (x :: xs) ys = x :: (xs ++ ys)

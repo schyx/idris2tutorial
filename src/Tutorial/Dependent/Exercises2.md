@@ -56,6 +56,7 @@ safeIndexList []        _        impossible
 5. Implement function `finToNat`, which converts a `Fin n` to the corresponding natural number, and use this to declare and implement function `take` for splitting of the first `k` elements of a `Vect n a` with `k <= n`.
 
 ```idris
+public export
 finToNat : Fin n -> Nat
 finToNat FZ     = 0
 finToNat (FS k) = S $ finToNat k
@@ -69,6 +70,7 @@ take (FS k) []          impossible
 6. Implement function `minus` for subtracting a value `k` from a natural number `n` with `k <= n`.
 
 ```idris
+public export
 minus : (n : Nat) -> (k : Fin (S n)) -> Nat
 minus n     FZ     = n
 minus (S m) (FS k) = minus m k
