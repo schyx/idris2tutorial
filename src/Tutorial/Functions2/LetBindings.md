@@ -79,23 +79,28 @@ Assume we run a music streaming web server, where users can buy whole albums and
 We first define a bunch of record types:
 
 ```idris
+public export
 record Artist where
   constructor MkArtist
   name : String
 
+public export
 record Album where
   constructor MkAlbum
   name   : String
   artist : Artist
 
+public export
 record Email where
   constructor MkEmail
   value : String
 
+public export
 record Password where
   constructor MkPassword
   value : String
 
+public export
 record User where
   constructor MkUser
   name     : String
@@ -107,12 +112,16 @@ record User where
 Most of these should be self-explanatory. Note, however, that in several cases (`Email`, `Artist`, `Password`) we wrap a single value in a new record type. Of course, we *could* have used the unwrapped `String` type instead, but we'd have ended up with many `String` fields, which can be hard to disambiguate. In order not to confuse an email string with a password string, it can therefore be helpful to wrap both of them in a new record type to drastically increase type safety at the cost of having to reimplement some interfaces. Utility function `on` from the *Prelude* is very useful for this. Don't forget to inspect its type at the REPL, and try to understand what's going on here.
 
 ```idris
+public export
 Eq Artist where (==) = (==) `on` name
 
+public export
 Eq Email where (==) = (==) `on` value
 
+public export
 Eq Password where (==) = (==) `on` value
 
+public export
 Eq Album where (==) = (==) `on` \a => (a.name, a.artist)
 ```
 
@@ -121,16 +130,19 @@ In case of `Album`, we wrap the two fields of the record in a `Pair`, which alre
 Next, we have to define the data types representing server requests and responses:
 
 ```idris
+public export
 record Credentials where
   constructor MkCredentials
   email    : Email
   password : Password
 
+public export
 record Request where
   constructor MkRequest
   credentials : Credentials
   album       : Album
 
+public export
 data Response : Type where
   UnknownUser     : Email -> Response
   InvalidPassword : Response
@@ -143,6 +155,7 @@ For server responses, we use a custom sum type encoding the possible outcomes of
 We can now go ahead and simulate the handling of a request at the server. To emulate our user data base, a simple list of users will do. Here's the type of the function we'd like to implement:
 
 ```idris
+public export
 DB : Type
 DB = List User
 
