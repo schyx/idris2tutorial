@@ -24,6 +24,7 @@ Languages without dependent types (like Haskell), can often only take the route 
 Assume, as an example, we'd like to extract a value from a `Vect n a` at (zero-based) index `k`. Surely, this can succeed if and only if `k` is a natural number strictly smaller than the length `n` of the vector. Luckily, we can express this precondition in an indexed type:
 
 ```idris
+public export
 data Fin : (n : Nat) -> Type where
   FZ : {0 n : Nat} -> Fin (S n)
   FS : (k : Fin n) -> Fin (S n)
