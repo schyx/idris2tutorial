@@ -120,6 +120,7 @@ data Error : Type where
   UnknownOperator : (value : String) -> Error
   ParseError      : (input : String) -> Error
 
+public export
 dispError : Error -> String
 dispError (NotAnInteger v)    = "Not an integer: " ++ v ++ "."
 dispError (UnknownOperator v) = "Unknown operator: " ++ v ++ "."
@@ -147,6 +148,7 @@ readOperator s   = Left (UnknownOperator s)
 We are now ready to parse and evaluate simple arithmetic expressions. This consists of several steps (splitting the input string, parsing each literal), each of which can fail. Later, when we learn about monads, we will see that do blocks can be used in such occasions just as well. However, in this case we can use an alternative syntactic convenience: Pattern matching in let bindings. Here is the code:
 
 ```idris
+public export
 eval : String -> Either Error Integer
 eval s =
   let [x,y,z]  := forget $ split isSpace s | _ => Left (ParseError s)
